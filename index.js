@@ -5,7 +5,7 @@ dotenv.config();
 const mongo_URL=process.env.mongo_URL;
 
 const app=express();
-const Port=9000;
+const Port=process.env.Port;
 app.use(express.json());
 async function createConnection()
 {
