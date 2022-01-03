@@ -3,9 +3,9 @@ import {MongoClient} from 'mongodb';
 import dotenv from 'dotenv';
 dotenv.config();
 const mongo_URL=process.env.mongo_URL;
-
+const Port=process.env.PORT;
+// Port=9000
 const app=express();
-const Port=process.env.Port;
 app.use(express.json());
 async function createConnection()
 {
