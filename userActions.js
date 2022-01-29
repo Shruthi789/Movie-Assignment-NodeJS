@@ -10,12 +10,23 @@ async function genPassword(password)
   return hashedPassword;
 }
 
+async function comparePassword(password,storedPassword)
+{
+  const result=await bcrypt.compare(password,storedPassword);
+  console.log(result);
+  return result;
+}
+
 function addUser(user){
     return client.db('newDB').collection('users').insertOne(user);
 }
 
 function getUsers(){
     return client.db('newDB').collection('users').find().toArray();
+}
+
+function getUser(username){
+    return client.db('newDB').collection('users').findOne({username});
 }
 
 function passwordStrength(password){
@@ -27,4 +38,4 @@ function passwordStrength(password){
     }
     return 'Password weak!!'
 }
-export {genPassword,addUser,getUsers,passwordStrength}
+export {genPassword,addUser,getUsers,passwordStrength,getUser,comparePassword}

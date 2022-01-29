@@ -3,11 +3,13 @@ import {MongoClient} from 'mongodb';
 import dotenv from 'dotenv';
 import {moviesRouter} from './routes/movies.js';
 import {usersRouter} from './routes/users.js';
+import cors from 'cors';
 dotenv.config();
 
 const mongo_URL=process.env.mongo_URL;
 const Port=process.env.PORT;
 const app=express();
+app.use(cors());
 app.use(express.json());
 
 async function createConnection()

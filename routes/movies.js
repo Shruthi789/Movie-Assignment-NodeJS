@@ -1,9 +1,10 @@
 import express from "express"
 import { getMovies, getMovieByID, addMovies, editMovie, deleteMovie } from '../movieActions.js';
+import { auth } from "../middleware/auth.js";
 const router=express.Router();
 
 router.route('/')
-      .get(async (request,response)=>{
+      .get(auth,async (request,response)=>{
     const queryParams=request.query;
     if(queryParams.rating){
         queryParams.rating=(+request.query.rating);
@@ -11,7 +12,7 @@ router.route('/')
     const result=await getMovies(queryParams);
     response.send(result);
     })
-    .post(async (request,response)=>{
+    .post(auth,async (request,response)=>{
   const data=request.body;
   console.log('Incoming movies');
   const result=await addMovies(data);
