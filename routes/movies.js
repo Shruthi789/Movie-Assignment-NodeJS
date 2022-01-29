@@ -26,15 +26,15 @@ router.route('/')
  
      })
      .put(async (request,response)=>{
-   const params=request.params;
+   const {id}=request.params;
    const data=request.body;
-   const result=await editMovie(params, data);
+   const result=await editMovie({_id:id}, data);
    console.log('Movie Edited');
    response.send(result);
  })
  .delete(async (request,response)=>{
-   const params=request.params;
-   const result=await deleteMovie(params);
+   const {id}=request.params;
+   const result=await deleteMovie({_id:id});
    console.log('Movie Deleted');
    response.send(result);
  });
