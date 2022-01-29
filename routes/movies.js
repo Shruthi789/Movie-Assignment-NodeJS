@@ -1,6 +1,7 @@
 import express from "express"
 import { getMovies, getMovieByID, addMovies, editMovie, deleteMovie } from '../movieActions.js';
 import { auth } from "../middleware/auth.js";
+import { ObjectID } from 'bson';
 const router=express.Router();
 
 router.route('/')
@@ -28,13 +29,13 @@ router.route('/')
      .put(async (request,response)=>{
    const {id}=request.params;
    const data=request.body;
-   const result=await editMovie({_id:id}, data);
+   const result=await editMovie({_id:ObjectID(id)}, data);
    console.log('Movie Edited');
    response.send(result);
  })
  .delete(async (request,response)=>{
    const {id}=request.params;
-   const result=await deleteMovie({_id:id});
+   const result=await deleteMovie({_id:ObjectID(id)});
    console.log('Movie Deleted');
    response.send(result);
  });

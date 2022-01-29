@@ -1,3 +1,4 @@
+import { ObjectID } from 'bson';
 import { client } from './index.js';
 
 function deleteMovie(params) {
@@ -10,7 +11,7 @@ function addMovies(data) {
   return client.db('newDB').collection('movies').insertMany(data);
 }
 function getMovieByID(id) {
-  return client.db('newDB').collection('movies').findOne({ _id:id });
+  return client.db('newDB').collection('movies').findOne({ _id:ObjectID(id) });
 }
 function getMovies(queryParams) {
   return client
