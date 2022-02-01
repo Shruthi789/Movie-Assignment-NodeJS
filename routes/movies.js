@@ -11,7 +11,7 @@ router.route('/')
         queryParams.rating=(+request.query.rating);
     }
     const result=await getMovies(queryParams);
-    result?response.send(result):response.status('404').send("Movie(s) not found");
+    result.length!==0?response.send(result):response.status('404').send("Movie(s) not found");
     })
     .post(auth,async (request,response)=>{
   const data=request.body;
