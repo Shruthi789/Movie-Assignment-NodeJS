@@ -20,5 +20,8 @@ function getMovies(queryParams) {
     .find(queryParams)
     .toArray();
 }
+function getLanguages() {
+  return client.db('newDB').collection('movies').distinct('language');
+}
 
-export {deleteMovie,editMovie,addMovies,getMovieByID,getMovies}
+export {deleteMovie,editMovie,addMovies,getMovieByID,getMovies,getLanguages}

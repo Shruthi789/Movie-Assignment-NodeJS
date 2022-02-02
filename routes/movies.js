@@ -1,5 +1,5 @@
 import express from "express"
-import { getMovies, getMovieByID, addMovies, editMovie, deleteMovie } from '../movieActions.js';
+import { getMovies, getMovieByID, addMovies, editMovie, deleteMovie,getLanguages } from '../movieActions.js';
 import { auth } from "../middleware/auth.js";
 import { ObjectID } from 'bson';
 const router=express.Router();
@@ -19,6 +19,13 @@ router.route('/')
   const result=await addMovies(data);
   response.send(result);
 });
+
+router.route('/languages')
+.get(async (request,response)=>{
+  const result=await getLanguages();
+  response.send(result);
+  });
+
  router.route('/:id')
       .get(async (request,response)=>{
      const {id}=request.params;
