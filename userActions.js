@@ -30,9 +30,8 @@ function getUser(username){
 }
 
 function passwordStrength(password){
-    const condition1=password.length>=10 && password.search(/('@'|'!'|'#'|'$'|'%'|'^'|'&'|'*')/g)!==null;
-    const condition2=password.search(/[A-Z]/g)!==null && password.search(/[0-9]/g)!==null;
-    if(condition1 && condition2)
+    const condition='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'.test(password);
+    if(condition)
     {
         return 'Password Strong!!'
     }
