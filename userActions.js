@@ -30,7 +30,8 @@ function getUser(username){
 }
 
 function passwordStrength(password){
-    const condition='^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'.test(password);
+    const regexp=new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})','g');
+    const condition=regexp.test(password);
     if(condition)
     {
         return 'Password Strong!!'
