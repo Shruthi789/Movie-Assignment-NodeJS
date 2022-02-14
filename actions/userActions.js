@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { client } from './index.js';
+import { client } from '../index.js';
 
 async function genPassword(password)
 {

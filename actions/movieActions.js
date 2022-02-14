@@ -1,5 +1,5 @@
 import { ObjectID } from 'bson';
-import { client } from './index.js';
+import { client } from '../index.js';
 
 function deleteMovie(params) {
   return client.db('newDB').collection('movies').deleteOne(params);

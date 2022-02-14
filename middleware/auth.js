@@ -1,13 +1,23 @@
 import jwt from "jsonwebtoken";
-const auth=(request,response,next)=>{
+function adminAuth(request,response,next){
     try{
     const token=request.header('x-auth-token');
-    console.log(token);
-    jwt.verify(token,process.env.SECRET_KEY);
+    jwt.verify(token,process.env.ADMIN_SECRET_KEY);
     next();
-    }catch(err){
-        response.status(401).send(err.message);
+    }catch(error){
+      response.status(401).send(error.message);
     }
+
+}
+function regAuth(request,response,next){
+  try{
+  const token=request.header('x-auth-token');
+  jwt.verify(token,process.env.REG_SECRET_KEY);
+  next();
+  }catch(error){
+    response.status(401).send(error.message);
+  }
+
 }
 
-export {auth};
+export {adminAuth,regAuth};
