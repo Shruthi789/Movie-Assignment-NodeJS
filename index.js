@@ -23,7 +23,7 @@ async function createConnection()
  export const client=await createConnection();
  
 app.get('/',(request,response)=>{
-   response.send("Hello World! My name is Shruthi");
+   response.send("Hello World! Welcome to the movies app");
 });
 
 app.use('/movies',moviesRouter);

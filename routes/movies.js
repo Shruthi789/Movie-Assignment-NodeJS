@@ -4,10 +4,9 @@ import { adminAuth,regAuth } from "../middleware/auth.js";
 import { ObjectID } from 'bson';
 const router=express.Router();
 
-router.use(regAuth);
 
 router.route('/')
-      .get(async (request,response)=>{
+      .get(regAuth,async (request,response)=>{
     const queryParams=request.query;
     if(queryParams.rating){
         queryParams.rating=(+request.query.rating);
@@ -23,13 +22,13 @@ router.route('/')
 });
 
 router.route('/languages')
-.get(async (request,response)=>{
+.get(regAuth,async (request,response)=>{
   const result=await getLanguages();
   response.send(result);
   });
 
  router.route('/:id')
-      .get(async (request,response)=>{
+      .get(regAuth,async (request,response)=>{
      const {id}=request.params;
      const result=await getMovieByID(id);
      result?response.send(result):response.status('404').send("Movie not found");
