@@ -12,7 +12,7 @@ function adminAuth(request,response,next){
 function regAuth(request,response,next){
   try{
   const token=request.header('x-auth-token');
-  const {role}=request.body;
+  const role=request.header('role');
   if(role==='Admin'){
     jwt.verify(token,process.env.ADMIN_SECRET_KEY);
   }
