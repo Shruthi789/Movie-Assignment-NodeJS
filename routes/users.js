@@ -34,10 +34,10 @@ router.route('/signup')
       response.status(401).send('Invalid credentials');
       return;
     }
-    if(user.userType==='Admin'){
+    if(user.usertype==='Admin'){
       token=jwt.sign({id:user._id},process.env.ADMIN_SECRET_KEY);
       }
-      if(user.userType==='Regular'){
+      if(user.usertype==='Regular'){
       token=jwt.sign({id:user._id},process.env.REG_SECRET_KEY);
       }
       response.send({msg:'Sign in successful',type:user.usertype,token});
