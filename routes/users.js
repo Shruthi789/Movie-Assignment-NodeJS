@@ -25,6 +25,7 @@ router.route('/signup')
         .post(async (request,response)=>{
     const {username,password}=request.body;
     const user=await getUser(username);
+    let token;
     if(!user){
       response.status(401).send('Invalid credentials');
       return;
