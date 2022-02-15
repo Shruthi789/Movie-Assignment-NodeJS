@@ -5,7 +5,7 @@ const router=express.Router();
 
 router.route('/signup')
     .post(async (request,response)=>{
-      const {username,password,userType}=request.body;
+      const {username,password,usertype}=request.body;
       const user=await getUser(username);
       const passStrength=passwordStrength(password);
       if(user){
@@ -16,7 +16,7 @@ router.route('/signup')
     }
     else{
       const hashedPassword=await genPassword(password);
-      const result=await addUser({username,password:hashedPassword,userType});
+      const result=await addUser({username,password:hashedPassword,usertype});
       response.send(result);
     }
   });
@@ -40,7 +40,7 @@ router.route('/signup')
       if(user.userType==='Regular'){
       token=jwt.sign({id:user._id},process.env.REG_SECRET_KEY);
       }
-      response.send({msg:'Sign in successful',type:user.userType,token});
+      response.send({msg:'Sign in successful',type:user.usertype,token});
     });
 
  export const usersRouter=router;
