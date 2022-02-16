@@ -41,7 +41,7 @@ router.route('/signup')
       if(user.usertype==='Regular'){
       token=jwt.sign({id:user._id},process.env.REG_SECRET_KEY);
       }
-      response.send({msg:'Sign in successful',type:user.usertype,token});
+      response.send({msg:'Sign in successful',type:user.usertype,username,token});
     });
 
  export const usersRouter=router;
