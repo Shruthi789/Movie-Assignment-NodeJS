@@ -69,7 +69,7 @@ router.route('/signup')
  router.route('/change-password')
        .post(async(request,response)=>{
          const {email,otpCode,password}=request.body;
-         const otp=await otpFind({email,otpCode});
+         const otp=await otpFind({email,otpCode:(+otpCode)});
          if(otp){
            const currentTime=new Date().getTime();
            const diff=otp.expireIn-currentTime;
