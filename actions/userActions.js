@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { ObjectId } from 'mongodb';
 import { client } from '../index.js';
 
 async function genPassword(password)
@@ -25,7 +26,15 @@ function getUsers(){
     return client.db('newDB').collection('users').find().toArray();
 }
 
-function getUser(username){
+function updateUsers(id,data){
+    return client.db('newDB').collection('users').updateOne({_id:ObjectId(id)},{$set:data});
+}
+
+function getUser(filter){
+    const {username,email}=filter;
+    if(email){
+    return client.db('newDB').collection('users').findOne({email});
+    }
     return client.db('newDB').collection('users').findOne({username});
 }
 
@@ -38,4 +47,12 @@ function passwordStrength(password){
     }
     return 'Password weak!!'
 }
-export {genPassword,addUser,getUsers,passwordStrength,getUser,comparePassword}
+function emailValidation(email){
+    const regexp=new RegExp('(.+)@(.+)$');
+    const condition=regexp.test(email);
+    if(condition){
+        return 'Email valid!!'
+    }
+    return 'Email invalid!!'
+}
+export {genPassword,addUser,getUsers,updateUsers,passwordStrength,getUser,comparePassword,emailValidation}
