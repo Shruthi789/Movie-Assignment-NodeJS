@@ -87,7 +87,7 @@ router.route('/signup')
               const hashedPassword=await genPassword(password);
               const action=await updateUsers(user._id,{password:hashedPassword});
               await otpDelete(otp._id);
-              response.send({msg:"Password changed! Please login again",action})
+              response.send({msg:"Password changed!",action})
             }
             else if(passStrength==="Password weak!!"){
               response.status(400).send({msg:passStrength})
