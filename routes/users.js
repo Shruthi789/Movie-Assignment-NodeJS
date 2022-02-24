@@ -12,13 +12,13 @@ router.route('/signup')
       const passStrength=passwordStrength(password);
       const emailValid=emailValidation(email);
       if(user){
-          response.status(400).send('Duplicate value!!');
+          response.status(400).send({msg:'Duplicate value!!'});
       }
       else if(passStrength==='Password weak!!'){
-        response.status(400).send(passStrength);
+        response.status(400).send({msg:passStrength});
     }
     else if(emailValid==='Email invalid!!'){
-      response.status(400).send(emailValid);
+      response.status(400).send({msg:emailValid});
     }
     else{
       const hashedPassword=await genPassword(password);
@@ -68,14 +68,17 @@ router.route('/signup')
         })
  router.route('/change-password')
        .post(async(request,response)=>{
-         const {email,otpCode,password}=request.body;
+         const {email,otpCode,password,confirmPassword}=request.body;
+         if(password!==confirmPassword){
+          response.status(400).send({msg:"Passwords not matching!"});
+         }
          const otp=await otpFind({email,otpCode:(+otpCode)});
          if(otp){
            const currentTime=new Date().getTime();
            const diff=otp.expireIn-currentTime;
            if(diff<0){
              const action=await otpDelete(otp._id);
-             response.send({msg:"OTP Expired! Please generate a new OTP",action});
+             response.status(400).send({msg:"OTP Expired! Please generate a new OTP",action});
            }
            else{
             const user=await getUser({email});
@@ -87,7 +90,7 @@ router.route('/signup')
               response.send({msg:"Password changed! Please login again",action})
             }
             else if(passStrength==="Password weak!!"){
-              response.send({msg:passStrength})
+              response.status(400).send({msg:passStrength})
             }
            }
          }
