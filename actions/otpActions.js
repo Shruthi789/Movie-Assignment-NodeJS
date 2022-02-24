@@ -18,6 +18,7 @@ function otpDelete({id}){
 //Sending the mail
 function mailSend({email,otpCode,expireIn}){
     let mailTransporter= nodemailer.createTransport({
+        name: "smtp.gmail.com",
         host: "smtp.gmail.com",
         port:465,
         secure:true,
