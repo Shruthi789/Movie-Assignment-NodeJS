@@ -23,7 +23,7 @@ router.route('/signup')
     else{
       const hashedPassword=await genPassword(password);
       const result=await addUser({username,password:hashedPassword,usertype,email});
-      response.send(result);
+      response.send({msg:"Success!!",result});
     }
   });
 
