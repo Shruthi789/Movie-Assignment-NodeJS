@@ -37,7 +37,8 @@ router.route('/languages')
      .put(adminAuth,async (request,response)=>{
    const {id}=request.params;
    let data=request.body;
-   data.rating=(+data.rating);
+   data.rating=(+request.body.rating);
+   console.log(data);
    const result=await editMovie({_id:ObjectID(id)}, data);
    console.log('Movie Edited');
    response.send(result);
