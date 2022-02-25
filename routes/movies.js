@@ -12,10 +12,10 @@ router.route('/')
         queryParams.rating=(+request.query.rating);
     }
     const result=await getMovies(queryParams);
-    result.length!==0?response.send(result):response.status('404').send("Movie(s) not found");
+    result.length!==0?response.send(result):response.status(404).send("Movie(s) not found");
     })
     .post(adminAuth,async (request,response)=>{
-  const data=request.body;
+  const data=request.body.map((value)=>{value.rating=(+value.rating); return value;})
   console.log('Incoming movies');
   const result=await addMovies(data);
   response.send(result);
@@ -31,12 +31,13 @@ router.route('/languages')
       .get(regAuth,async (request,response)=>{
      const {id}=request.params;
      const result=await getMovieByID(id);
-     result?response.send(result):response.status('404').send("Movie not found");
+     result?response.send(result):response.status(404).send("Movie not found");
  
      })
      .put(adminAuth,async (request,response)=>{
    const {id}=request.params;
-   const data=request.body;
+   let data=request.body;
+   data.rating=(+data.rating);
    const result=await editMovie({_id:ObjectID(id)}, data);
    console.log('Movie Edited');
    response.send(result);
